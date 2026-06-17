@@ -20,6 +20,17 @@ export function Hero() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileWorkOpen, setMobileWorkOpen] = useState(false);
 
+  const [avatarSrc, setAvatarSrc] = useState("/profile.jpg");
+  const [imgFailed, setImgFailed] = useState(false);
+
+  const handleAvatarError = () => {
+    if (avatarSrc === "/profile.jpg") {
+      setAvatarSrc("/icons/profile.jpg");
+    } else {
+      setImgFailed(true);
+    }
+  };
+
   const [typewriterText, setTypewriterText] = useState("");
   const fullSubtitle = "Electronics and Embedded Systems Engineer";
 
@@ -548,19 +559,35 @@ export function Hero() {
                 alignItems: "center",
                 justifyContent: "center",
                 boxShadow: "0 0 40px rgba(255,255,255,0.03)",
+                position: "relative",
               }}
             >
-              <div
-                style={{
-                  fontFamily: '"Editorial New", "Playfair Display", Georgia, serif',
-                  fontSize: isMobile ? "2.5rem" : "3.2rem",
-                  fontWeight: 100,
-                  color: "rgba(255, 255, 255, 0.25)",
-                  letterSpacing: "-0.05em",
-                }}
-              >
-                DKA
-              </div>
+              {!imgFailed ? (
+                <img
+                  src={avatarSrc}
+                  alt="Dilip Kumar A N"
+                  onError={handleAvatarError}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                  referrerPolicy="no-referrer"
+                />
+              ) : (
+                <div
+                  style={{
+                    fontFamily: '"Editorial New", "Playfair Display", Georgia, serif',
+                    fontSize: isMobile ? "2.5rem" : "3.2rem",
+                    fontWeight: 100,
+                    color: "rgba(255, 255, 255, 0.25)",
+                    letterSpacing: "-0.05em",
+                  }}
+                >
+                  DKA
+                </div>
+              )}
             </div>
           </div>
         </div>
