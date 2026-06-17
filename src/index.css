@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+:root {
+  --room-black: #050505;
+  --holo-text: rgba(249, 246, 238, 0.95);
+  --holo-glow: rgba(167, 226, 255, 0.12);
+  --background: #050505;
+  --foreground: #fafaf8;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: var(--room-black);
+  color: var(--foreground);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.spatial-scene {
+  position: relative;
+  min-height: 100vh;
+  background-color: transparent;
+  z-index: 1;
+}
+
+.hologram-interface {
+  position: relative;
+  z-index: 3;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hologram-interface::-webkit-scrollbar {
+  display: none;
+}
+
+.hologram-content {
+  color: var(--holo-text);
+  text-shadow: 0 0 14px var(--holo-glow);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.blink-cursor {
+  animation: blink 1s infinite alternate;
+}
+
+@keyframes highlights-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
