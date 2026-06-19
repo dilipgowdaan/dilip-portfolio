@@ -155,27 +155,12 @@ export function AIBackground() {
     };
     window.addEventListener("mousemove", handleMouseMove);
 
-    const buildScanlines = (w: number, h: number) => {
-      const sc = document.createElement("canvas");
-      sc.width = w;
-      sc.height = h;
-      const sctx = sc.getContext("2d")!;
-      sctx.fillStyle = "rgba(255,255,255,0.012)";
-      for (let y = 0; y < h; y += 4) {
-        sctx.fillRect(0, y, w, 1);
-      }
-      scanlinesRef.current = sc;
-    };
-
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       initNodes();
       initParticles();
       initDustMotes();
-      if (!isMobile) {
-        buildScanlines(canvas.width, canvas.height);
-      }
     };
 
     const initNodes = () => {
@@ -275,29 +260,6 @@ export function AIBackground() {
       });
     };
 
-    const drawGrid = (time: number) => {
-      const W = canvas.width,
-        H = canvas.height;
-      const gridSize = 60;
-      const offset = (time * 0.015) % gridSize;
-
-      ctx.strokeStyle = "rgba(255,255,255,0.02)";
-      ctx.lineWidth = 0.5;
-
-      for (let x = -offset; x < W + gridSize; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, H);
-        ctx.stroke();
-      }
-      for (let y = -offset; y < H + gridSize; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(W, y);
-        ctx.stroke();
-      }
-    };
-
     const draw = () => {
       const nodes = nodesRef.current;
       const packets = packetsRef.current;
@@ -308,14 +270,6 @@ export function AIBackground() {
 
       ctx.fillStyle = `rgba(${BG},1)`;
       ctx.fillRect(0, 0, W, H);
-
-      if (!isMobile) {
-        drawGrid(frameRef.current);
-      }
-
-      if (!isMobile && scanlinesRef.current) {
-        ctx.drawImage(scanlinesRef.current, 0, 0);
-      }
 
       frameRef.current++;
       if (frameRef.current % PACKET_INTERVAL === 0) spawnPacket();
@@ -532,7 +486,6 @@ export function AIBackground() {
       initNodes();
       initParticles();
       initDustMotes();
-      if (!isMobile) buildScanlines(canvas.width, canvas.height);
       draw();
     };
 
