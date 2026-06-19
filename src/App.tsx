@@ -12,27 +12,81 @@ import { BeyondAcademics } from "./components/BeyondAcademics";
 import { Contact } from "./components/Contact";
 import { BottomRightHUD } from "./components/BottomRightHUD";
 import { useHashScroll } from "./hooks/useHashScroll";
+import { AdminDashboard } from "./components/AdminDashboard";
+import { initAnalyticsTracker } from "./utils/analytics";
 
 export default function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const triggerFired = useRef(false);
   useHashScroll();
 
   useEffect(() => {
-    const el = document.querySelector(".hologram-interface") as HTMLElement | null;
-    if (!el) return;
+    // Initialize standard click listeners globally
+    const cleanupTracker = initAnalyticsTracker();
 
+    // Listen to route/pathname modifications
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+    };
+
+    window.addEventListener("popstate", handleLocationChange);
+    
+    // Intercept pushState/replaceState
+    const originalPushState = history.pushState;
+    const originalReplaceState = history.replaceState;
+    
+    history.pushState = function(...args) {
+      const res = originalPushState.apply(this, args);
+      window.dispatchEvent(new Event("locationchange"));
+      return res;
+    };
+    
+    history.replaceState = function(...args) {
+      const res = originalReplaceState.apply(this, args);
+      window.dispatchEvent(new Event("locationchange"));
+      return res;
+    };
+
+    window.addEventListener("locationchange", handleLocationChange);
+
+    const el = document.querySelector(".hologram-interface") as HTMLElement | null;
+    
     const onScroll = () => {
+      if (!el) return;
       const max = el.scrollHeight - el.clientHeight;
       const progress = max > 0 ? el.scrollTop / max : 0;
       setScrollProgress(progress);
     };
 
-    el.addEventListener("scroll", onScroll, { passive: true });
+    if (el) {
+      el.addEventListener("scroll", onScroll, { passive: true });
+    }
+
     return () => {
-      el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("popstate", handleLocationChange);
+      window.removeEventListener("locationchange", handleLocationChange);
+      history.pushState = originalPushState;
+      history.replaceState = originalReplaceState;
+      if (cleanupTracker) cleanupTracker();
+      if (el) {
+        el.removeEventListener("scroll", onScroll);
+      }
     };
   }, []);
+
+  const isAdmin = currentPath.toLowerCase() === "/admin" || currentPath.toLowerCase() === "/admin/";
+
+  if (isAdmin) {
+    return (
+      <LazyMotion features={domAnimation}>
+        <div className="spatial-scene">
+          <AIBackground />
+          <AdminDashboard onClose={() => { history.pushState(null, "", "/"); }} />
+        </div>
+      </LazyMotion>
+    );
+  }
 
   return (
     <LazyMotion features={domAnimation}>

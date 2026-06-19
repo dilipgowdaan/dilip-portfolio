@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { trackSectionView } from "../utils/analytics";
 
 const SECTION_IDS = [
   "hero",
@@ -103,6 +104,7 @@ export function useHashScroll() {
         const next = activeId === "hero" ? "/" : `/${activeId}`;
         if (window.location.pathname !== next) {
           history.replaceState(null, "", next);
+          trackSectionView(activeId);
         }
       }
     };
