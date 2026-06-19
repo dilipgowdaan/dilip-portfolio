@@ -40,8 +40,8 @@ interface AdminDashboardProps {
 }
 
 export function AdminDashboard({ onClose }: AdminDashboardProps) {
-  const [includeSimulated, setIncludeSimulated] = useState<boolean>(true);
-  const [analytics, setAnalytics] = useState(getAnalyticsData(true));
+  const [includeSimulated, setIncludeSimulated] = useState<boolean>(false);
+  const [analytics, setAnalytics] = useState(getAnalyticsData(false));
   const [realTimeLogs, setRealTimeLogs] = useState<string[]>([]);
   const [firebaseConnected, setFirebaseConnected] = useState<boolean>(!!getFirebaseConfig());
   const [firebaseKey, setFirebaseKey] = useState<string>(
@@ -240,13 +240,46 @@ export function AdminDashboard({ onClose }: AdminDashboardProps) {
   const handleConnectFirebase = (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Strip outer variable name context or wrappers if visitor pasted with export syntax
       let cleanKey = firebaseKey.trim();
-      const match = cleanKey.match(/\{[\s\S]*\}/);
-      if (match) {
-        cleanKey = match[0];
+      let parsed: any = null;
+
+      // 1. Try first to parse as pure JSON
+      try {
+        let bracketContent = cleanKey;
+        const match = cleanKey.match(/\{[\s\S]*\}/);
+        if (match) {
+          bracketContent = match[0];
+        }
+        parsed = JSON.parse(bracketContent);
+      } catch (jsonErr) {
+        // 2. If JSON parsing fails, extract fields using regex patterns (bulletproof for JS SDK code snippets)
+        const extract = (key: string) => {
+          // Matches key: "value", key : 'value', key:"value", etc.
+          const matchObj = cleanKey.match(new RegExp(`${key}\\s*:\\s*["']([^"']+)["']`, 'i'));
+          return matchObj ? matchObj[1] : '';
+        };
+
+        const apiKey = extract('apiKey');
+        const authDomain = extract('authDomain');
+        const projectId = extract('projectId');
+        const storageBucket = extract('storageBucket');
+        const messagingSenderId = extract('messagingSenderId');
+        const appId = extract('appId');
+        const measurementId = extract('measurementId');
+
+        if (apiKey && projectId) {
+          parsed = {
+            apiKey,
+            authDomain,
+            projectId,
+            storageBucket,
+            messagingSenderId,
+            appId,
+            measurementId
+          };
+        }
       }
-      const parsed = JSON.parse(cleanKey);
+
       if (parsed && parsed.apiKey && parsed.projectId) {
         saveFirebaseConfig(parsed);
         setFirebaseConnected(true);
@@ -256,10 +289,10 @@ export function AdminDashboard({ onClose }: AdminDashboardProps) {
           window.location.reload();
         }, 1200);
       } else {
-        alert("The pasted JSON is missing required fields like apiKey or projectId.");
+        alert("Could not extract required fields from the pasted snippet. Please make sure the apiKey and projectId fields are present.");
       }
     } catch (err) {
-      alert("Invalid JSON format. Please paste a clean, well-formed Firebase SDK config object JSON.");
+      alert("Invalid format. Please paste the clean config object from the Firebase console.");
     }
   };
 
@@ -289,7 +322,7 @@ export function AdminDashboard({ onClose }: AdminDashboardProps) {
     const elapsed = Math.max(0, s.lastActive - s.startTime) / 1000;
     totalDurationSec += elapsed > 0 ? elapsed : 15;
   });
-  const avgDurationMin = totalSessions > 0 ? Math.round((totalDurationSec / totalSessions) / 60 * 10) / 10 : 1.5;
+  const avgDurationMin = totalSessions > 0 ? Math.round((totalDurationSec / totalSessions) / 60 * 10) / 10 : 0;
 
   // Breakdown clicks by text/element
   const clickTallies: { [key: string]: number } = {};
@@ -460,22 +493,6 @@ export function AdminDashboard({ onClose }: AdminDashboardProps) {
 
         {/* Mode Toggle Controls */}
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1rem" }}>
-          {/* Simulated Mode Option */}
-          <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.72rem", cursor: "pointer", color: "rgba(255,255,255,0.7)" }}>
-            <input 
-              type="checkbox"
-              checked={includeSimulated}
-              onChange={(e) => {
-                setIncludeSimulated(e.target.checked);
-              }}
-              style={{
-                accentColor: "#2ed4c8",
-                cursor: "pointer"
-              }}
-            />
-            Include Global Simulated Traffic
-          </label>
-
           {/* Quick Clear Button */}
           <button
             onClick={handleClear}

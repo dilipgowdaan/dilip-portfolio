@@ -236,11 +236,11 @@ function handleFirestoreError(error: unknown, operationType: OperationType, path
 // Core Business Helpers
 // -------------------------------------------------------------
 
-export const getLocalAnalyticsData = (includeSimulated = true): AnalyticsData => {
+export const getLocalAnalyticsData = (includeSimulated = false): AnalyticsData => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      const initial = generateSimulatedData();
+      const initial: AnalyticsData = { sessions: [], clicks: [], sectionViews: [] };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
       return initial;
     }
@@ -250,14 +250,10 @@ export const getLocalAnalyticsData = (includeSimulated = true): AnalyticsData =>
     if (!data.sessions) data.sessions = [];
     if (!data.sectionViews) data.sectionViews = [];
 
-    if (data.sessions.length === 0 && includeSimulated) {
-      return generateSimulatedData();
-    }
-
     return data;
   } catch (error) {
     console.error("Analytics local read error:", error);
-    return generateSimulatedData();
+    return { sessions: [], clicks: [], sectionViews: [] };
   }
 };
 
@@ -270,7 +266,7 @@ export const saveLocalAnalyticsData = (data: AnalyticsData) => {
 };
 
 // Return a unified or real database-driven data layout
-export const getAnalyticsData = (includeSimulated = true): AnalyticsData => {
+export const getAnalyticsData = (includeSimulated = false): AnalyticsData => {
   // Default fallback
   return getLocalAnalyticsData(includeSimulated);
 };
