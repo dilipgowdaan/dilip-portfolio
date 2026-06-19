@@ -1,10 +1,5 @@
 {
-  "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/(css|js|assets|images|favicon|public)/(.*)",
-      "destination": "/$1/$2"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
