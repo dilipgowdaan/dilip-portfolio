@@ -61,6 +61,11 @@ export function useHashScroll() {
     const initial =
       pathSection || (SECTION_IDS.includes(hashSection) ? hashSection : "");
 
+    // Track the initial visible section on load immediately (defaults to "hero")
+    if (!window.location.pathname.toLowerCase().includes("/admin")) {
+      trackSectionView(initial || "hero");
+    }
+
     if (initial && initial !== "hero") {
       let attempts = 0;
       const tryScroll = () => {

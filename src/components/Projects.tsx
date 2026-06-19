@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { m, AnimatePresence } from "motion/react";
 import { useIsMobile } from "../hooks/useMediaQuery";
 import { Github, ExternalLink, ArrowLeft, Cpu, Terminal, Sparkles, Trophy } from "lucide-react";
+import { trackClick } from "../utils/analytics";
 
 const FONT_SERIF = '"Playfair Display", Georgia, serif';
 const FONT_MONO = '"DM Mono", monospace';
@@ -734,7 +735,10 @@ export function Projects() {
           <m.div
             key={p.id}
             whileHover={{ y: -6, borderColor: p.color + "99" }}
-            onClick={() => setActiveProject(p)}
+            onClick={() => {
+              setActiveProject(p);
+              trackClick(`Opened Project: ${p.title}`, "project", undefined, "projects");
+            }}
             style={{
               background: "rgba(10, 10, 10, 0.4)",
               border: "1px solid rgba(255, 255, 255, 0.05)",
