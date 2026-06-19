@@ -490,3 +490,114 @@ export const initAnalyticsTracker = () => {
     document.removeEventListener("click", handleGlobalClick);
   };
 };
+
+export const subscribeToSessions = (
+  onData: (sessions: SessionInfo[]) => void,
+  onAdded: (session: SessionInfo) => void
+): (() => void) | null => {
+  const fdb = initFirebaseApp();
+  if (!fdb) return null;
+  return onSnapshot(collection(fdb, "sessions"), (snapshot) => {
+    const list: SessionInfo[] = [];
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      list.push({
+        sessionId: doc.id,
+        startTime: data.startTime || Date.now(),
+        lastActive: data.lastActive || Date.now(),
+        browser: data.browser || "Other",
+        platform: data.platform || "Other",
+        screenSize: data.screenSize || "1440x900",
+      });
+    });
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "added") {
+        const data = change.doc.data();
+        onAdded({
+          sessionId: change.doc.id,
+          startTime: data.startTime || Date.now(),
+          lastActive: data.lastActive || Date.now(),
+          browser: data.browser || "Other",
+          platform: data.platform || "Other",
+          screenSize: data.screenSize || "1440x900",
+        });
+      }
+    });
+    onData(list);
+  }, (err) => {
+    console.error("Firestore sessions subscription err", err);
+  });
+};
+
+export const subscribeToClicks = (
+  onData: (clicks: ClickEvent[]) => void,
+  onAdded: (click: ClickEvent) => void
+): (() => void) | null => {
+  const fdb = initFirebaseApp();
+  if (!fdb) return null;
+  return onSnapshot(collection(fdb, "clicks"), (snapshot) => {
+    const list: ClickEvent[] = [];
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      list.push({
+        id: doc.id,
+        timestamp: data.timestamp || Date.now(),
+        elementType: data.elementType || "other",
+        text: data.text || "Action Item",
+        href: data.href,
+        section: data.section,
+      });
+    });
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "added") {
+        const data = change.doc.data();
+        onAdded({
+          id: change.doc.id,
+          timestamp: data.timestamp || Date.now(),
+          elementType: data.elementType || "other",
+          text: data.text || "Action Item",
+          href: data.href,
+          section: data.section,
+        });
+      }
+    });
+    list.sort((a, b) => a.timestamp - b.timestamp);
+    onData(list);
+  }, (err) => {
+    console.error("Firestore clicks subscription err", err);
+  });
+};
+
+export const subscribeToSectionViews = (
+  onData: (views: SectionViewEvent[]) => void,
+  onAdded: (view: SectionViewEvent) => void
+): (() => void) | null => {
+  const fdb = initFirebaseApp();
+  if (!fdb) return null;
+  return onSnapshot(collection(fdb, "sectionViews"), (snapshot) => {
+    const list: SectionViewEvent[] = [];
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      list.push({
+        section: data.section || "global",
+        timestamp: data.timestamp || Date.now(),
+        duration: data.duration || 5,
+      });
+    });
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "added") {
+        const data = change.doc.data();
+        onAdded({
+          section: data.section || "global",
+          timestamp: data.timestamp || Date.now(),
+          duration: data.duration || 5,
+        });
+      }
+    });
+    list.sort((a, b) => a.timestamp - b.timestamp);
+    onData(list);
+  }, (err) => {
+    console.error("Firestore sectionViews subscription err", err);
+  });
+};
+

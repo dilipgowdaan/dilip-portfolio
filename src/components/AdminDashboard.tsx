@@ -29,9 +29,11 @@ import {
   trackClick,
   getFirebaseConfig,
   saveFirebaseConfig,
-  initFirebaseApp
+  initFirebaseApp,
+  subscribeToSessions,
+  subscribeToClicks,
+  subscribeToSectionViews
 } from "../utils/analytics";
-import { collection, onSnapshot } from "firebase/firestore";
 
 interface AdminDashboardProps {
   onClose: () => void;
@@ -157,115 +159,64 @@ export function AdminDashboard({ onClose }: AdminDashboardProps) {
         window.removeEventListener("dg_analytics_section_view", handleLiveSection);
       };
     } else {
-      // Clean Firestore Active Telemetry integration
+      // Clean Firestore Active Telemetry integration using central subscription wrappers
       setFirebaseConnected(true);
       const timeStr = new Date().toLocaleTimeString();
       setRealTimeLogs([`[${timeStr}] SYSTEM: Connected to real-time Firestore synchronization stream...`]);
 
-      const cloudSessions: SessionInfo[] = [];
-      const cloudClicks: ClickEvent[] = [];
-      const cloudViews: SectionViewEvent[] = [];
+      let cloudSessions: SessionInfo[] = [];
+      let cloudClicks: ClickEvent[] = [];
+      let cloudViews: SectionViewEvent[] = [];
 
-      const unsubSessions = onSnapshot(collection(fdb, "sessions"), (snapshot) => {
-        cloudSessions.length = 0;
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          cloudSessions.push({
-            sessionId: doc.id,
-            startTime: data.startTime || Date.now(),
-            lastActive: data.lastActive || Date.now(),
-            browser: data.browser || "Other",
-            platform: data.platform || "Other",
-            screenSize: data.screenSize || "1440x900",
+      const unsubSessions = subscribeToSessions(
+        (sessionsList) => {
+          cloudSessions = sessionsList;
+          setAnalytics({
+            sessions: [...cloudSessions],
+            clicks: [...cloudClicks],
+            sectionViews: [...cloudViews]
           });
-        });
+        },
+        (addedSession) => {
+          const logDate = new Date(addedSession.startTime).toLocaleTimeString();
+          setRealTimeLogs(prev => [`[${logDate}] CLOUD SESSION CONNECT: ID ${addedSession.sessionId.slice(0, 8)} (${addedSession.platform}/${addedSession.browser})`, ...prev].slice(0, 15));
+        }
+      );
 
-        // Log additions in real-time terminal feed
-        snapshot.docChanges().forEach((change) => {
-          if (change.type === "added") {
-            const logDate = new Date().toLocaleTimeString();
-            const p = change.doc.data().platform || "Other";
-            const b = change.doc.data().browser || "Other";
-            setRealTimeLogs(prev => [`[${logDate}] CLOUD SESSION CONNECT: ID ${change.doc.id.slice(0, 8)} (${p}/${b})`, ...prev].slice(0, 15));
-          }
-        });
-
-        setAnalytics({
-          sessions: [...cloudSessions],
-          clicks: [...cloudClicks],
-          sectionViews: [...cloudViews]
-        });
-      }, (err) => {
-        console.error("Firestore sessions err", err);
-      });
-
-      const unsubClicks = onSnapshot(collection(fdb, "clicks"), (snapshot) => {
-        cloudClicks.length = 0;
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          cloudClicks.push({
-            id: doc.id,
-            timestamp: data.timestamp || Date.now(),
-            elementType: data.elementType || "other",
-            text: data.text || "Action Item",
-            href: data.href,
-            section: data.section
+      const unsubClicks = subscribeToClicks(
+        (clicksList) => {
+          cloudClicks = clicksList;
+          setAnalytics({
+            sessions: [...cloudSessions],
+            clicks: [...cloudClicks],
+            sectionViews: [...cloudViews]
           });
-        });
+        },
+        (addedClick) => {
+          const logDate = new Date(addedClick.timestamp).toLocaleTimeString();
+          setRealTimeLogs(prev => [`[${logDate}] CLOUD CLICK: "${addedClick.text}" on [${addedClick.section || "global"}]`, ...prev].slice(0, 15));
+        }
+      );
 
-        snapshot.docChanges().forEach((change) => {
-          if (change.type === "added") {
-            const logDate = new Date().toLocaleTimeString();
-            const text = change.doc.data().text || "Item";
-            setRealTimeLogs(prev => [`[${logDate}] CLOUD CLICK: "${text}" on [${change.doc.data().section || "global"}]`, ...prev].slice(0, 15));
-          }
-        });
-
-        cloudClicks.sort((a, b) => a.timestamp - b.timestamp);
-
-        setAnalytics({
-          sessions: [...cloudSessions],
-          clicks: [...cloudClicks],
-          sectionViews: [...cloudViews]
-        });
-      }, (err) => {
-        console.error("Firestore clicks err", err);
-      });
-
-      const unsubViews = onSnapshot(collection(fdb, "sectionViews"), (snapshot) => {
-        cloudViews.length = 0;
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          cloudViews.push({
-            section: data.section || "global",
-            timestamp: data.timestamp || Date.now(),
-            duration: data.duration || 5
+      const unsubViews = subscribeToSectionViews(
+        (viewsList) => {
+          cloudViews = viewsList;
+          setAnalytics({
+            sessions: [...cloudSessions],
+            clicks: [...cloudClicks],
+            sectionViews: [...cloudViews]
           });
-        });
-
-        snapshot.docChanges().forEach((change) => {
-          if (change.type === "added") {
-            const logDate = new Date().toLocaleTimeString();
-            const sec = change.doc.data().section || "global";
-            setRealTimeLogs(prev => [`[${logDate}] CLOUD SCROLL: Entered segment [${sec}]`, ...prev].slice(0, 15));
-          }
-        });
-
-        cloudViews.sort((a, b) => a.timestamp - b.timestamp);
-
-        setAnalytics({
-          sessions: [...cloudSessions],
-          clicks: [...cloudClicks],
-          sectionViews: [...cloudViews]
-        });
-      }, (err) => {
-        console.error("Firestore section views err", err);
-      });
+        },
+        (addedView) => {
+          const logDate = new Date(addedView.timestamp).toLocaleTimeString();
+          setRealTimeLogs(prev => [`[${logDate}] CLOUD SCROLL: Entered segment [${addedView.section}]`, ...prev].slice(0, 15));
+        }
+      );
 
       return () => {
-        unsubSessions();
-        unsubClicks();
-        unsubViews();
+        if (unsubSessions) unsubSessions();
+        if (unsubClicks) unsubClicks();
+        if (unsubViews) unsubViews();
       };
     }
   }, [includeSimulated]);
