@@ -21,9 +21,9 @@ export function Contact() {
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [formMessage, setFormMessage] = useState("");
 
-  const copyEmailToClipboard = async () => {
+  const copyEmailToClipboard = async (emailStr = "dilipgowda7259@gmail.com") => {
     try {
-      await globalThis.navigator.clipboard.writeText("dilipgowda7259@gmail.com");
+      await globalThis.navigator.clipboard.writeText(emailStr);
       setCopyToastMessage("Copied!");
       setTimeout(() => setCopyToastMessage(null), 1600);
     } catch {
@@ -33,8 +33,14 @@ export function Contact() {
   };
 
   const handleResumeDownload = () => {
-    setDownloadToastMessage("Requested!");
-    setTimeout(() => setDownloadToastMessage(null), 1600);
+    setDownloadToastMessage("Downloading...");
+    setTimeout(() => setDownloadToastMessage(null), 2000);
+    const link = document.createElement("a");
+    link.href = "/Dilip_Kumar_CV.pdf";
+    link.setAttribute("download", "Dilip_Kumar_CV.pdf");
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode?.removeChild(link);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -532,12 +538,12 @@ export function Contact() {
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   whileHover={{ x: 4 }}
                   onClick={
-                    label === "Email"
+                    label.includes("Email")
                       ? (e) => {
                           e.preventDefault();
-                          void copyEmailToClipboard();
+                          void copyEmailToClipboard(value);
                         }
-                      : label === "Resume"
+                      : label.includes("Resume")
                         ? (e) => {
                             e.preventDefault();
                             handleResumeDownload();
@@ -596,13 +602,13 @@ export function Contact() {
                       >
                         {value}
                       </p>
-                      {(label === "Email" || label === "Resume") && (
+                      {(label.includes("Email") || label.includes("Resume")) && (
                         <AnimatePresence mode="wait">
-                          {(label === "Email"
+                          {(label.includes("Email")
                             ? copyToastMessage
                             : downloadToastMessage) && (
                             <m.p
-                              key={label === "Email" ? copyToastMessage! : downloadToastMessage!}
+                              key={label.includes("Email") ? copyToastMessage! : downloadToastMessage!}
                               initial={{ opacity: 0, x: -6, scale: 0.98 }}
                               animate={{ opacity: 1, x: 0, scale: 1 }}
                               exit={{ opacity: 0, x: -4, scale: 0.98 }}

@@ -98,7 +98,7 @@ export function About() {
                 letterSpacing: "0.02em",
                 color: "#fafaf8",
                 margin: 0,
-                whiteSpace: "nowrap",
+                whiteSpace: "normal",
               }}
             >
               Theory is secondary. Operational systems speak the absolute truth.

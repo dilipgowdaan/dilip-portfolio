@@ -95,7 +95,13 @@ export function Hero() {
   }, [showToast]);
 
   const handleResumeDownload = useCallback(() => {
-    showToast("Resume requested!");
+    showToast("Downloading CV...");
+    const link = document.createElement("a");
+    link.href = "/Dilip_Kumar_CV.pdf";
+    link.setAttribute("download", "Dilip_Kumar_CV.pdf");
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode?.removeChild(link);
   }, [showToast]);
 
   const onMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
