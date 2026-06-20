@@ -482,10 +482,10 @@ export function Projects() {
                   <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", borderRadius: "4px", overflow: "hidden" }}>
                     <img
                       src={
-                        activeProject.id === "vaidya-mithra" ? "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80" :
-                        activeProject.id === "namma-raitha" ? "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=600&q=80" :
-                        activeProject.id === "smart-waste" ? "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80" :
-                        activeProject.id === "solar-enerlytics" ? "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=600&q=80" :
+                        activeProject.id === "vaidya-mithra" ? "/vaidyamithra1.jpg" :
+                        activeProject.id === "namma-raitha" ? "/nammaraitha1.jpg" :
+                        activeProject.id === "smart-waste" ? "smartwaste1.jpg" :
+                        activeProject.id === "solar-enerlytics" ? "solar1.jpg" :
                         activeProject.id === "alu-design" ? "https://images.unsplash.com/photo-1601524909162-be87252be298?auto=format&fit=crop&w=600&q=80" :
                         "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80"
                       }
@@ -503,10 +503,10 @@ export function Projects() {
                   <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", borderRadius: "4px", overflow: "hidden" }}>
                     <img
                       src={
-                        activeProject.id === "vaidya-mithra" ? "https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&w=600&q=80" :
-                        activeProject.id === "namma-raitha" ? "https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=600&q=80" :
-                        activeProject.id === "smart-waste" ? "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=600&q=80" :
-                        activeProject.id === "solar-enerlytics" ? "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=600&q=80" :
+                        activeProject.id === "vaidya-mithra" ? "/vaidyamithra2.jpg" :
+                        activeProject.id === "namma-raitha" ? "/nammaraitha2.jpg" :
+                        activeProject.id === "smart-waste" ? "smartwaste2.jpg" :
+                        activeProject.id === "solar-enerlytics" ? "solar2.jpg" :
                         activeProject.id === "alu-design" ? "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" :
                         "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80"
                       }
@@ -524,10 +524,10 @@ export function Projects() {
                   <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", borderRadius: "4px", overflow: "hidden" }}>
                     <img
                       src={
-                        activeProject.id === "vaidya-mithra" ? "https://images.unsplash.com/photo-1504817342190-44ac84e26243?auto=format&fit=crop&w=600&q=80" :
-                        activeProject.id === "namma-raitha" ? "https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80" :
-                        activeProject.id === "smart-waste" ? "https://images.unsplash.com/photo-1528190336454-13cd56b45b5a?auto=format&fit=crop&w=600&q=80" :
-                        activeProject.id === "solar-enerlytics" ? "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80" :
+                        activeProject.id === "vaidya-mithra" ? "/vaidyamithra3.jpg" :
+                        activeProject.id === "namma-raitha" ? "/nammaraitha3.jpg" :
+                        activeProject.id === "smart-waste" ? "smartwaste3.jpg" :
+                        activeProject.id === "solar-enerlytics" ? "solar3.jpg" :
                         activeProject.id === "alu-design" ? "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80" :
                         "https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=600&q=80"
                       }
