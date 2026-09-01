@@ -95,8 +95,8 @@ export function ExperienceTimeline() {
     bullets: [
       "Delivered L1/L2 technical support for computer systems, peripherals, and network issues across a secure, high-availability government research environment.",
       "Installed, configured, and maintained Windows and Linux operating systems, hardware, and supporting IT infrastructure.",
-      "Performed hardware diagnostics, preventive maintenance, and data recovery, reducing repeat incidents and system downtime."
-      "Troubleshot LAN connectivity, IP addressing, and system-level network issues; supported day-to-day network management activities."
+      "Performed hardware diagnostics, preventive maintenance, and data recovery, reducing repeat incidents and system downtime.",
+      "Troubleshot LAN connectivity, IP addressing, and system-level network issues; supported day-to-day network management activities.",
       "Assisted with Fortinet firewall operations, including access control, security monitoring, and issue resolution."
     ]
   };
