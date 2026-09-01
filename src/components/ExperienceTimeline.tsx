@@ -291,8 +291,8 @@ export function ExperienceTimeline() {
             <span
               style={{
                 fontFamily: FONT_MONO,
-                fontSize: "0.58rem",
-                color: "rgba(255,255,255,0.4)",
+                fontSize: "0.60rem",
+                color: "#2ed4c8",
                 letterSpacing: "0.05em",
               }}
             >
