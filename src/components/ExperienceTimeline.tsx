@@ -26,7 +26,7 @@ const TIMELINE_DATA: TimelineEvent[] = [
     role: "B.E. in Electronics & Communication",
     institution: "R V College of Engineering, Bengaluru",
     period: "Dec 2023 - Aug 2026",
-    highlight: "7.86 CGPA",
+    highlight: "7.83 CGPA",
     color: "#c87eff", // Mild Violet
     icon: GraduationCap,
     bullets: [
