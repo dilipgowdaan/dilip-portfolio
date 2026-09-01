@@ -292,8 +292,9 @@ export function ExperienceTimeline() {
               style={{
                 fontFamily: FONT_MONO,
                 fontSize: "0.60rem",
-                color: "#2ed4c8",
+                color: "#fafaf8",
                 letterSpacing: "0.05em",
+                textTransform: "uppercase",
               }}
             >
               {isroExperience.period}
