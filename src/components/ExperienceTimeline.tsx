@@ -91,7 +91,7 @@ export function ExperienceTimeline() {
     role: "Technical Support Engineer",
     institution: "URSC / ISRO (Through Sree Venkateshwara enterprises)",
     period: "Mar 2022 – Dec 2023",
-    highlight: "ISRO System Support",
+    highlight: "ISRO/URSC, Bengaluru",
     bullets: [
       "Delivered L1/L2 technical support for computer systems, peripherals, and network issues across a secure, high-availability government research environment.",
       "Installed, configured, and maintained Windows and Linux operating systems, hardware, and supporting IT infrastructure.",
