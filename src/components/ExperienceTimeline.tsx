@@ -93,9 +93,11 @@ export function ExperienceTimeline() {
     period: "Mar 2022 – Dec 2023",
     highlight: "ISRO System Support",
     bullets: [
-      "Diagnosed and resolved complex system-level hardware and software issues across desktops and enterprise networks.",
-      "Automated critical system troubleshooting workflows to improve overall network and terminal availability.",
-      "Worked extensively with bare-metal interface drivers, debugging operating system registry and custom drivers."
+      "Delivered L1/L2 technical support for computer systems, peripherals, and network issues across a secure, high-availability government research environment.",
+      "Installed, configured, and maintained Windows and Linux operating systems, hardware, and supporting IT infrastructure.",
+      "Performed hardware diagnostics, preventive maintenance, and data recovery, reducing repeat incidents and system downtime."
+      "Troubleshot LAN connectivity, IP addressing, and system-level network issues; supported day-to-day network management activities."
+      "Assisted with Fortinet firewall operations, including access control, security monitoring, and issue resolution."
     ]
   };
 
