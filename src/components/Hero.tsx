@@ -32,7 +32,7 @@ export function Hero() {
   };
 
   const [typewriterText, setTypewriterText] = useState("");
-  const fullSubtitle = "Electronics and Embedded Systems Engineer";
+  const fullSubtitle = "Full Stack Software Engineer";
 
   useEffect(() => {
     let i = 0;
@@ -95,10 +95,10 @@ export function Hero() {
   }, [showToast]);
 
   const handleResumeDownload = useCallback(() => {
-    showToast("Downloading CV...");
+    showToast("Downloading Dilip_Kumar_AN.pdf...");
     const link = document.createElement("a");
-    link.href = "/Dilip_Kumar_CV.pdf";
-    link.setAttribute("download", "Dilip_Kumar_CV.pdf");
+    link.href = "/Dilip_Kumar_AN.pdf";
+    link.setAttribute("download", "Dilip_Kumar_AN.pdf");
     document.body.appendChild(link);
     link.click();
     link.parentNode?.removeChild(link);
@@ -216,7 +216,7 @@ export function Hero() {
                 fontWeight: 500,
               }}
             >
-              Available for Software &amp; Embedded Roles
+              Available for Full Stack &amp; Software Roles
             </span>
           </m.div>
 
@@ -306,7 +306,7 @@ export function Hero() {
                   lineHeight: 1.4,
                 }}
               >
-                Electronics &amp; Communication Engineer
+                Full Stack Software Engineer
               </p>
             </div>
             <div>
@@ -330,7 +330,7 @@ export function Hero() {
                   lineHeight: 1.4,
                 }}
               >
-                IoT Solutions, RTL Coding &amp; Full Stack Web Designer
+                Python, React, Next.js, PostgreSQL, Docker &amp; Kubernetes
               </p>
             </div>
           </m.div>
@@ -474,7 +474,7 @@ export function Hero() {
                   }}
                 >
                   <FileDown size={11} />
-                  <span>Request CV</span>
+                  <span>CV (Dilip_Kumar_AN)</span>
                 </m.button>
               )}
             </div>
@@ -501,7 +501,7 @@ export function Hero() {
                 }}
               >
                 <FileDown size={11} />
-                <span>Request CV</span>
+                <span>CV (Dilip_Kumar_AN)</span>
               </m.button>
             )}
           </m.div>

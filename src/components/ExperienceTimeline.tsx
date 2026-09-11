@@ -30,9 +30,9 @@ const TIMELINE_DATA: TimelineEvent[] = [
     color: "#c87eff", // Mild Violet
     icon: GraduationCap,
     bullets: [
-      "Core academic focus on VLSI circuits, HDL programming, RTL design, DSP architectures, and digital design standards.",
-      "Conducting robust simulation modeling and system validation for Vedic math ALU multipliers.",
-      "Consistently maintaining an optimal GPA of 7.86 while managing complex project showcase assignments."
+      "Focused on systems engineering, algorithm optimization, distributed computing models, and modern web & mobile architectures.",
+      "Developed high-impact full-stack and mobile solutions including healthcare triage platforms and municipal fleet tracking systems.",
+      "Consistently maintaining an optimal GPA of 7.86 while managing production-ready software engineering projects."
     ]
   },
   {

@@ -1,0 +1,8 @@
+[
+  {
+    "id": "sample-preview",
+    "title": "Sample BGM (Preview)",
+    "src": "/music/sample_bgm.mp3",
+    "isSample": true
+  }
+]

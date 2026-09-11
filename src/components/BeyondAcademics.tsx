@@ -1,20 +1,44 @@
+import React, { useState } from "react";
 import { m } from "motion/react";
 import { useIsMobile } from "../hooks/useMediaQuery";
-import { Rocket, Gauge, Orbit, Compass, Gamepad2, Cpu, Lightbulb } from "lucide-react";
+import {
+  Rocket,
+  Gauge,
+  Orbit,
+  Compass,
+  Gamepad2,
+  Cpu,
+  Lightbulb,
+  Music,
+  Headphones,
+  ArrowRight
+} from "lucide-react";
+import { MusicStudio } from "./MusicStudio";
 
 const FONT_SERIF = '"Playfair Display", Georgia, serif';
 const FONT_MONO = '"DM Mono", monospace';
 const FONT_SANS = '"DM Sans", sans-serif';
 
 type CardItem = {
+  id?: string;
   emoji: string;
   tag: string;
   title: string;
   desc: string;
   icon: any;
+  isMusic?: boolean;
 };
 
-const BEYOND_ITEMS = [
+const BEYOND_ITEMS: CardItem[] = [
+  {
+    id: "music-stems",
+    emoji: "🎵",
+    tag: "FAVORITE BGMS & TRACKS",
+    title: "Music & BGMs",
+    icon: <Music size={16} style={{ color: "#c87eff" }} />,
+    desc: "Recreation of some of the favorite BGMs. Click to listen to the tracks.",
+    isMusic: true,
+  },
   {
     emoji: "🚀",
     tag: "AEROSPACE & JET ENGINEERING",
@@ -68,6 +92,11 @@ const BEYOND_ITEMS = [
 
 export function BeyondAcademics() {
   const isMobile = useIsMobile();
+  const [isMusicStudioOpen, setIsMusicStudioOpen] = useState<boolean>(false);
+
+  if (isMusicStudioOpen) {
+    return <MusicStudio onBack={() => setIsMusicStudioOpen(false)} />;
+  }
 
   return (
     <section
@@ -124,7 +153,7 @@ export function BeyondAcademics() {
             margin: 0,
           }}
         >
-          Fusing theoretical digital modeling with a genuine curiosity for complete domains of physical engineering and real-world system mechanics.
+          Fusing software systems and digital architecture with curiosity for real-world mechanical, acoustic, aerodynamic, and physical engineering domains.
         </p>
       </div>
 
@@ -136,66 +165,114 @@ export function BeyondAcademics() {
           marginTop: "3rem",
         }}
       >
-        {BEYOND_ITEMS.map((item, idx) => (
-          <m.div
-            key={idx}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: idx * 0.05 }}
-            whileHover={{ y: -4, borderColor: "rgba(200, 126, 255, 0.4)" }}
-            style={{
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              borderRadius: "8px",
-              padding: "1.5rem",
-              background: "rgba(10, 10, 10, 0.25)",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
-              transition: "border-color 0.25s, transform 0.25s",
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span
-                style={{
-                  fontFamily: FONT_MONO,
-                  fontSize: "0.52rem",
-                  letterSpacing: "0.1em",
-                  color: "rgba(255, 255, 255, 0.45)",
-                  fontWeight: 700,
-                }}
-              >
-                {item.tag}
-              </span>
-              <span style={{ fontSize: "1.1rem" }}>{item.emoji}</span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              {item.icon}
-              <h4
-                style={{
-                  fontFamily: FONT_SERIF,
-                  fontSize: "1.05rem",
-                  fontWeight: 700,
-                  color: "#fafaf8",
-                  margin: 0,
-                }}
-              >
-                {item.title}
-              </h4>
-            </div>
-            <p
+        {BEYOND_ITEMS.map((item, idx) => {
+          const isMusic = Boolean(item.isMusic);
+
+          return (
+            <m.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.05 }}
+              whileHover={{
+                y: -4,
+                borderColor: isMusic ? "#c87eff" : "rgba(200, 126, 255, 0.4)",
+              }}
+              onClick={isMusic ? () => setIsMusicStudioOpen(true) : undefined}
               style={{
-                fontFamily: FONT_SANS,
-                fontSize: "0.78rem",
-                lineHeight: 1.55,
-                color: "rgba(255, 255, 255, 0.45)",
-                margin: 0,
+                border: isMusic
+                  ? "1px solid rgba(200, 126, 255, 0.35)"
+                  : "1px solid rgba(255, 255, 255, 0.08)",
+                borderRadius: "8px",
+                padding: "1.5rem",
+                background: isMusic
+                  ? "linear-gradient(180deg, rgba(200, 126, 255, 0.06) 0%, rgba(10, 10, 10, 0.3) 100%)"
+                  : "rgba(10, 10, 10, 0.25)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.75rem",
+                transition: "border-color 0.25s, transform 0.25s, background 0.25s",
+                cursor: isMusic ? "pointer" : "default",
+                position: "relative",
               }}
             >
-              {item.desc}
-            </p>
-          </m.div>
-        ))}
+              {/* Optional top-right glowing indicator badge for music */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span
+                  style={{
+                    fontFamily: FONT_MONO,
+                    fontSize: "0.52rem",
+                    letterSpacing: "0.1em",
+                    color: isMusic ? "#c87eff" : "rgba(255, 255, 255, 0.45)",
+                    fontWeight: 700,
+                  }}
+                >
+                  {item.tag}
+                </span>
+                <span style={{ fontSize: "1.1rem" }}>{item.emoji}</span>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                {item.icon}
+                <h4
+                  style={{
+                    fontFamily: FONT_SERIF,
+                    fontSize: "1.05rem",
+                    fontWeight: 700,
+                    color: "#fafaf8",
+                    margin: 0,
+                  }}
+                >
+                  {item.title}
+                </h4>
+              </div>
+
+              <p
+                style={{
+                  fontFamily: FONT_SANS,
+                  fontSize: "0.78rem",
+                  lineHeight: 1.55,
+                  color: "rgba(255, 255, 255, 0.45)",
+                  margin: 0,
+                  flex: 1,
+                }}
+              >
+                {item.desc}
+              </p>
+
+              {/* Special interactive CTA for music */}
+              {isMusic && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    paddingTop: "0.5rem",
+                    borderTop: "1px solid rgba(200, 126, 255, 0.15)",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: FONT_MONO,
+                      fontSize: "0.62rem",
+                      letterSpacing: "0.1em",
+                      color: "#c87eff",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <Headphones size={13} />
+                    <span>LISTEN TO BGMS</span>
+                  </span>
+                  <ArrowRight size={13} style={{ color: "#c87eff" }} />
+                </div>
+              )}
+            </m.div>
+          );
+        })}
       </div>
     </section>
   );

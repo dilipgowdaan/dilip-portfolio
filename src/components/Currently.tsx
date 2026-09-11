@@ -7,14 +7,14 @@ const FONT_SANS = '"DM Sans", sans-serif';
 
 const currentStatus = [
   {
-    label: "Solar Enerlytics",
+    label: "Distributed Web Architecture",
     detail:
-      "Integrating real-time weather forecasts with MQTT Node-RED telemetry to dynamically throttle solar charger load thresholds.",
+      "Designing scalable backend microservices with Python, Next.js server actions, and PostgreSQL connection pooling under high concurrency.",
   },
   {
-    label: "RISC-V Vedic ALUs",
+    label: "Mobile Fleet & Real-Time Sync",
     detail:
-      "Implementing and simulating Vedic Math Sutras inside Verilog ALU multipliers to optimize propagation delays and active dynamic power.",
+      "Optimizing telemetry streams and client-side reconciliation algorithms in React Native mobile applications with sub-5-second responsive workflows.",
   },
 ];
 

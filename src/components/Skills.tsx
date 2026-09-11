@@ -1,20 +1,7 @@
 import { useState } from "react";
 import { m } from "motion/react";
 import { useIsMobile } from "../hooks/useMediaQuery";
-import {
-  Rocket,
-  Gauge,
-  Orbit,
-  Compass,
-  Gamepad2,
-  Cpu,
-  Lightbulb,
-  Terminal,
-  Database,
-  Code,
-  Globe,
-  Layers,
-} from "lucide-react";
+import { TechIcon } from "./TechIcons";
 
 const FONT_SERIF = '"Playfair Display", Georgia, serif';
 const FONT_MONO = '"DM Mono", monospace';
@@ -33,176 +20,76 @@ type Category = { label: string; color: string; techs: Tech[] };
 
 const C = {
   lang: "#fafaf8",
-  embedded: "#fafaf8",
-  protocols: "#fafaf8",
+  data: "#fafaf8",
+  devops: "#fafaf8",
 };
 
 const CATEGORIES: Category[] = [
   {
-    label: "Programming & Web",
+    label: "Languages & Frameworks",
     color: C.lang,
     techs: [
-      { n: "React", f: "react.svg" },
-      { n: "React Native", f: "react.svg" },
-      { n: "C", f: "c.svg" },
       { n: "Python", f: "python.svg" },
-      { n: "HTML", f: "html5.svg" },
-      { n: "SQL", f: "postgresql.svg", brk: "Postgre / SQLite" },
+      { n: "React", f: "react.svg" },
+      { n: "Next.js", f: "vercel.svg" },
+      { n: "TypeScript", f: "visualstudiocode.svg" },
+      { n: "Node.js", f: "flask.svg", brk: "Express / REST" },
+      { n: "FastAPI / Flask", f: "flask.svg" },
+      { n: "C / C++", f: "c.svg", brk: "Systems" },
+      { n: "HTML5 / CSS3", f: "html5.svg" },
     ],
   },
   {
-    label: "Software & Tools",
-    color: C.embedded,
+    label: "Databases & Storage",
+    color: C.data,
     techs: [
-      { n: "Firebase", f: "firebase.svg" },
-      { n: "Vercel", f: "vercel.svg" },
+      { n: "PostgreSQL", f: "postgresql.svg", brk: "Relational / SQL" },
+      { n: "MongoDB", f: "postgresql.svg", brk: "Document Store" },
+      { n: "Redis", f: "firebase.svg", brk: "In-Memory / Cache" },
       { n: "Supabase", f: "supabase.svg" },
-      { n: "Flask", f: "flask.svg" },
-      { n: "Expo", f: "expo.svg" },
-      { n: "VS Code", f: "visualstudiocode.svg" },
-      { n: "Arduino IDE", f: "arduino.svg" },
-      { n: "MATLAB", f: "tb-components.svg", chip: true },
+      { n: "Firebase", f: "firebase.svg" },
+      { n: "SQL Optimization", f: "postgresql.svg" },
     ],
   },
   {
-    label: "Hardware Platforms",
-    color: C.protocols,
+    label: "DevOps, Cloud & Mobile",
+    color: C.devops,
     techs: [
-      { n: "Verilog", f: "tb-components.svg", chip: true },
-      { n: "System Verilog", f: "tb-components.svg", chip: true },
-      { n: "FPGA Boards", f: "tb-clock-bolt.svg" },
-      { n: "Raspberry Pi", f: "raspberrypi.svg" },
-      { n: "Arduino Uno", f: "arduino.svg" },
-      { n: "ESP8266/ESP32", f: "tb-shield-check.svg", brk: "IoT Boards" },
+      { n: "Docker", f: "tb-clock-bolt.svg", brk: "Containers" },
+      { n: "Kubernetes", f: "tb-clock-bolt.svg", brk: "Orchestration" },
+      { n: "React Native", f: "react.svg", brk: "Cross-Platform" },
+      { n: "Expo", f: "expo.svg" },
+      { n: "Git & CI/CD", f: "visualstudiocode.svg" },
+      { n: "Linux / Bash", f: "tb-shield-check.svg" },
+      { n: "Vercel", f: "vercel.svg" },
     ],
   },
 ];
 
-function Icon({ u, size, techName }: { u: Unit; size: number; techName: string; key?: number | string }) {
-  const [failed, setFailed] = useState(false);
-
-  if (failed) {
-    const n = techName.toLowerCase();
-    let color = "rgba(255, 255, 255, 0.45)";
-    let FallbackComp = Layers;
-
-    if (n.includes("react")) {
-      color = "#61dafb";
-      FallbackComp = Code;
-    } else if (n.includes("python")) {
-      color = "#3776ab";
-      FallbackComp = Terminal;
-    } else if (n.includes("c")) {
-      color = "#a8b9cc";
-      FallbackComp = Terminal;
-    } else if (n.includes("html")) {
-      color = "#e34f26";
-      FallbackComp = Globe;
-    } else if (n.includes("sql") || n.includes("postgresql")) {
-      color = "#336791";
-      FallbackComp = Database;
-    } else if (n.includes("firebase")) {
-      color = "#ffca28";
-      FallbackComp = Database;
-    } else if (n.includes("supabase")) {
-      color = "#3ecf8e";
-      FallbackComp = Database;
-    } else if (n.includes("vercel")) {
-      color = "#fafaf8";
-      FallbackComp = Globe;
-    } else if (n.includes("flask")) {
-      color = "#fafaf8";
-      FallbackComp = Code;
-    } else if (n.includes("expo") || n.includes("vs code")) {
-      color = "#47a2ff";
-      FallbackComp = Code;
-    } else if (
-      n.includes("arduino") ||
-      n.includes("matlab") ||
-      n.includes("verilog") ||
-      n.includes("system verilog") ||
-      n.includes("fpga") ||
-      n.includes("pi") ||
-      n.includes("esp")
-    ) {
-      color = "#2ed4c8";
-      FallbackComp = Cpu;
-    }
-
-    return (
-      <span
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: `${size}px`,
-          height: `${size}px`,
-          background: "rgba(255, 255, 255, 0.04)",
-          borderRadius: "6px",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
-        }}
-        title={techName}
-      >
-        <FallbackComp size={Math.max(size - 14, 15)} style={{ color }} />
-      </span>
-    );
-  }
-
-  const srcUrl = `/icons/${u.f}`;
-
-  if (u.chip) {
-    return (
-      <span
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#fff",
-          borderRadius: "6px",
-          padding: "3px",
-          width: `${size}px`,
-          height: `${size}px`,
-        }}
-      >
-        <img
-          src={srcUrl}
-          alt={techName}
-          onError={() => setFailed(true)}
-          loading="lazy"
-          decoding="async"
-          style={{
-            maxWidth: "100%",
-            maxHeight: "100%",
-            objectFit: "contain",
-            display: "block",
-          }}
-        />
-      </span>
-    );
-  }
+function Icon({ size, techName }: { u?: Unit; size: number; techName: string; key?: number | string }) {
   return (
-    <img
-      src={srcUrl}
-      alt={techName}
-      onError={() => setFailed(true)}
-      loading="lazy"
-      decoding="async"
+    <span
       style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
         width: `${size}px`,
         height: `${size}px`,
-        objectFit: "contain",
-        display: "block",
-        filter: u.filter ? "brightness(0) invert(1)" : undefined,
+        background: "rgba(255, 255, 255, 0.03)",
+        borderRadius: "8px",
+        border: "1px solid rgba(255, 255, 255, 0.08)",
+        padding: "4px",
+        transition: "all 0.25s ease",
       }}
-    />
+      title={techName}
+    >
+      <TechIcon name={techName} size={size - 8} />
+    </span>
   );
 }
 
 function Tile({ t, isMobile }: { t: Tech; isMobile: boolean; key?: number | string }) {
-  const units: Unit[] = t.parts ?? [
-    { f: t.f!, chip: t.chip, filter: t.filter },
-  ];
-  const size = t.parts ? 30 : 38;
+  const size = isMobile ? 38 : 42;
   return (
     <div
       style={{
@@ -219,12 +106,10 @@ function Tile({ t, isMobile }: { t: Tech; isMobile: boolean; key?: number | stri
           gap: "7px",
           alignItems: "center",
           justifyContent: "center",
-          height: "40px",
+          height: "44px",
         }}
       >
-        {units.map((u, i) => (
-          <Icon key={i} u={u} size={size} techName={t.n} />
-        ))}
+        <Icon size={size} techName={t.n} />
       </div>
       <div
         style={{
@@ -341,7 +226,7 @@ export function Skills() {
               maxWidth: "260px",
             }}
           >
-            A high-performance stack bridging low-level hardware design and modern software systems.
+            A production-grade stack engineered for scalable web backends, responsive interfaces, containerized microservices, and distributed databases.
           </m.p>
         </div>
 

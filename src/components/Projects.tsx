@@ -82,34 +82,60 @@ const PROJECTS_DATA: Project[] = [
   },
   {
     id: "smart-waste",
-    title: "Smart Waste",
-    subtitle: "Intelligent Fleet Management & Container Triage Platform",
-    meta: "IoT Telemetry Platform • 2025",
-    categoryBadges: ["REACTIVE GEO-ROUTING", "ACTIVE"],
+    title: "Smart Waste Management",
+    subtitle: "Urban IoT & Mobile Fleet Tracking Platform",
+    meta: "Mobile Fleet Platform • 2025",
+    categoryBadges: ["REACT NATIVE", "GEOLOCATION", "EXPO"],
     color: "#ffaa2e", // Orange
-    github: "https://github.com/dilipgowdaan",
-    statsLabel: "Municipal Fuel Savings",
+    github: "https://github.com/dilipgowdaan/Bengaluru-Clean-Smart-Waste-Management",
+    statsLabel: "Fleet Route Efficiency",
     statsValue: "38%",
-    contextHtml: "Municipal sanitation fleets follow <strong>rigid paths</strong> that ignore container fill rates, creating massive emissions overhead and unnecessary fuel bills.",
-    approachHtml: "Fabricated an <strong>intelligent waste tracking system</strong> with dynamic routing solvers, active container fill indicators, and live fleet map telemetry streams.",
-    systemHtml: "Engineered on <strong>React Native</strong>, custom <strong>Mapbox SDK layers</strong>, combined with hardware-simulated ESP32 ultrasonic sensors.",
-    deepDiveProblemTitle: "Why Traditional Urban Disposal Routing is Broken",
-    deepDiveProblemBody: "Sanitation trucks spend fuel emptying semi-filled trash zones while failing to pick up overflowing bins across high-density markets, causing severe public hygiene degradation. Bins are completely blind nodes with zero active communications.",
-    deepDiveSolutionTitle: "Sensor-Weighted Dynamic Garbage Truck Dispatches",
-    deepDiveSolutionBody: "This platform simulates ESP32 ultrasonic transducers reporting volumetric fill percentages directly to regional coordinates. Dispatch heuristics compute route prioritizations based on overflowing nodes first, adjusting truck waypoints dynamically to avoid unnecessary runs.",
+    contextHtml: "Fixed municipal waste collection routes are inefficient, leading to <strong>missed pickups</strong>, overflowing bins, and unnecessary fuel consumption.",
+    approachHtml: "Engineered a <strong>cross-platform React Native app</strong> with live GPS fleet mapping, arrival telemetry estimations, and multi-role operations.",
+    systemHtml: "Built with <strong>React Native</strong>, <strong>JavaScript</strong>, <strong>Geolocation APIs</strong>, <strong>Expo</strong>, and <strong>Real-Time Database</strong>.",
+    deepDiveProblemTitle: "Inefficiencies in Fixed Urban Waste Collection Routing",
+    deepDiveProblemBody: "Fixed municipal waste collection routes are inefficient, leading to missed pickups, overflowing bins, and unnecessary fuel consumption across dense urban wards. Sanitation dispatchers have no real-time awareness of vehicle coordinates or route impediments.",
+    deepDiveSolutionTitle: "Live Telemetry & Fleet Tracking with Multi-Role Management",
+    deepDiveSolutionBody: "Smart Waste Management System deploys real-time GPS mapping inside a React Native mobile application that tracks municipal collection vehicles and estimates arrival times for citizens. It provides specialized application views for sanitation drivers (route guidance, pickup confirmations), municipal supervisors (fleet status, coverage metrics), and residents (service alerts, issue logging).",
     keyFeatures: [
-      "Hardware Simulated ESP32 Fill Rate Updates",
-      "Weighted Route Optimization Algorithms",
-      "Dynamic Fleet Location Tracking Map",
-      "Custom Volumetric Progress Widgets"
+      "Live Telemetry & Fleet Tracking: Real-time GPS mapping inside React Native",
+      "Citizen ETA calculations and service alert notifications",
+      "Driver Portal with route guidance and instant pickup confirmations",
+      "Supervisor Dashboard with fleet status, vehicle telemetry, and coverage metrics",
+      "Resident issue logging module with geospatial coordinates"
+    ]
+  },
+  {
+    id: "trip-tracker",
+    title: "Trip Expense Tracker",
+    subtitle: "Mobile Finance & Group Accounting Application",
+    meta: "Mobile FinTech • 2024-2025",
+    categoryBadges: ["REACT NATIVE", "FINTECH", "EXPO"],
+    color: "#38bdf8", // Sky Blue
+    github: "https://github.com/dilipgowdaan/TripTracker",
+    statsLabel: "Expense Logging Speed",
+    statsValue: "<5s",
+    contextHtml: "Managing shared expenses during group travel is cumbersome due to <strong>mixed payment methods</strong> (cash and digital UPI) and delayed ledger entries.",
+    approachHtml: "Built an <strong>ultra-rapid entry UI</strong> with net balance debt reconciliation algorithms and proactive budget threshold guardrails.",
+    systemHtml: "Architected on <strong>React Native (Expo)</strong>, <strong>JavaScript</strong>, and <strong>Local Persistence / State Management</strong>.",
+    deepDiveProblemTitle: "Friction in Multi-Party Travel & Group Expense Splitting",
+    deepDiveProblemBody: "Managing shared group expenses during group travel is often cumbersome due to mixed payment methods (cash and digital UPI payments) and delayed ledger entries. Post-trip settlement turns into an arithmetic nightmare with circular debts and disputed records.",
+    deepDiveSolutionTitle: "Rapid Single-Screen Entry & Multi-Channel Reconciliation",
+    deepDiveSolutionBody: "Trip Expense Tracker eliminates settlement overhead through a sub-5-second rapid entry flow and automated multi-channel balance reconciliation. It tracks mixed cash and UPI payments across multiple participants, calculating net balances to minimize the total number of reimbursement transactions needed, backed by analytics breakdowns and budget threshold alerts.",
+    keyFeatures: [
+      "Rapid Entry UI: Record shared transactions in under 5 seconds",
+      "Multi-Channel Balance Reconciliation for mixed cash and digital UPI payments",
+      "Net Balance Algorithm minimizing the total number of reimbursement transactions",
+      "Categorized spending breakdowns & daily transaction histories",
+      "Budget threshold guardrails and proactive overspending alerts"
     ]
   },
   {
     id: "solar-enerlytics",
     title: "Solar Enerlytics",
     subtitle: "Grid-Integrated PV Telemetry & Battery Optimization",
-    meta: "Industrial IoT Core • 2025",
-    categoryBadges: ["GRID INTEGRATION", "COMPLETED"],
+    meta: "Systems & IoT Project • 2024-2025",
+    categoryBadges: ["TELEMETRY", "COMPLETED"],
     color: "#6366f1", // Cosmic Blue
     url: "https://solarenerlytics.vercel.app/",
     github: "https://github.com/dilipgowdaan",
@@ -151,30 +177,6 @@ const PROJECTS_DATA: Project[] = [
       "Full RV32I base command set simulation model",
       "Extensive SystemVerilog Assertions Timing verification",
       "Synthesized FPGA clock rate validation runs"
-    ]
-  },
-  {
-    id: "robotic-arm",
-    title: "Robotic Arm",
-    subtitle: "Precision Rover Mechatronics & Inverse Kinematics",
-    meta: "Planetary Robotics Project • 2024",
-    categoryBadges: ["EMBEDDED CONTROL", "COMPLETED"],
-    color: "#2ed4c8", // Teal
-    github: "https://github.com/dilipgowdaan",
-    statsLabel: "Angular Precision Margin",
-    statsValue: "0.1°",
-    contextHtml: "Exploration rovers face <strong>rugged, unguided surroundings</strong> requiring precise mechatronic limbs to manipulate objects securely and resist damage.",
-    approachHtml: "Formulated and coded <strong>inverse kinematics equations</strong> to control multiple servomotors with smooth trajectory filters and current sensors.",
-    systemHtml: "Developed in <strong>C++ on Bare-Metal Microcontrollers</strong> with external diagnostic data output streams.",
-    deepDiveProblemTitle: "Mechanical Delays and Motor Stress in Rugged Environments",
-    deepDiveProblemBody: "Gear backlash, physical strain, and unpredictable payload weights introduce coordinate drift in classic robotic arms. Operating blind without constant physical current audits leads to motor stall burnouts in remote operations.",
-    deepDiveSolutionTitle: "Closed-loop Impedance and Feedback Protection Design",
-    deepDiveSolutionBody: "This mechatronic solution monitors motor physical load profiles continuously via electrical current sensors. Instantly calculated feedback algorithms adapt motor currents output to ensure soft landings, preventing structural stress and ensuring highly accurate angle positioning.",
-    keyFeatures: [
-      "Bare-Metal C++ Servo Kinematics Solvers",
-      "Real-time Current Surge Limit Overrides",
-      "Trajectory Spline Smoothing Core",
-      "Lightweight diagnostic telemetry stream"
     ]
   }
 ];
@@ -282,12 +284,12 @@ export function Projects() {
   const isMobile = useIsMobile();
   const [activeProject, setActiveProject] = useState<Project | null>(null);
 
-  // Group projects for visual hierarchy as requested
-  const softwareRows = PROJECTS_DATA.filter(
-    (p) => p.id === "vaidya-mithra" || p.id === "namma-raitha" || p.id === "smart-waste"
+  // Group projects for visual hierarchy
+  const fullstackRows = PROJECTS_DATA.filter(
+    (p) => p.id === "vaidya-mithra" || p.id === "namma-raitha" || p.id === "smart-waste" || p.id === "trip-tracker"
   );
   const hardwareRows = PROJECTS_DATA.filter(
-    (p) => p.id === "solar-enerlytics" || p.id === "alu-design" || p.id === "robotic-arm"
+    (p) => p.id === "solar-enerlytics" || p.id === "alu-design"
   );
 
   // Deep Dive detail panel (Image 1 style)
@@ -484,10 +486,10 @@ export function Projects() {
                       src={
                         activeProject.id === "vaidya-mithra" ? "/vaidyamithra1.jpg" :
                         activeProject.id === "namma-raitha" ? "/nammaraitha1.jpg" :
-                        activeProject.id === "smart-waste" ? "smartwaste1.jpg" :
-                        activeProject.id === "solar-enerlytics" ? "solar1.jpg" :
-                        activeProject.id === "alu-design" ? "https://images.unsplash.com/photo-1601524909162-be87252be298?auto=format&fit=crop&w=600&q=80" :
-                        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80"
+                        activeProject.id === "solar-enerlytics" ? "/solar1.jpg" :
+                        activeProject.id === "smart-waste" ? "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80" :
+                        activeProject.id === "trip-tracker" ? "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" :
+                        "https://images.unsplash.com/photo-1601524909162-be87252be298?auto=format&fit=crop&w=600&q=80"
                       }
                       alt={`${activeProject.title} view 1`}
                       referrerPolicy="no-referrer"
@@ -505,10 +507,10 @@ export function Projects() {
                       src={
                         activeProject.id === "vaidya-mithra" ? "/vaidyamithra2.jpg" :
                         activeProject.id === "namma-raitha" ? "/nammaraitha2.jpg" :
-                        activeProject.id === "smart-waste" ? "smartwaste2.jpg" :
-                        activeProject.id === "solar-enerlytics" ? "solar2.jpg" :
-                        activeProject.id === "alu-design" ? "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" :
-                        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80"
+                        activeProject.id === "solar-enerlytics" ? "/solar2.jpg" :
+                        activeProject.id === "smart-waste" ? "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" :
+                        activeProject.id === "trip-tracker" ? "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=600&q=80" :
+                        "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80"
                       }
                       alt={`${activeProject.title} view 2`}
                       referrerPolicy="no-referrer"
@@ -526,9 +528,9 @@ export function Projects() {
                       src={
                         activeProject.id === "vaidya-mithra" ? "/vaidyamithra3.jpg" :
                         activeProject.id === "namma-raitha" ? "/nammaraitha3.jpg" :
-                        activeProject.id === "smart-waste" ? "smartwaste3.jpg" :
-                        activeProject.id === "solar-enerlytics" ? "solar3.jpg" :
-                        activeProject.id === "alu-design" ? "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80" :
+                        activeProject.id === "solar-enerlytics" ? "/solar3.jpg" :
+                        activeProject.id === "smart-waste" ? "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=600&q=80" :
+                        activeProject.id === "trip-tracker" ? "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" :
                         "https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=600&q=80"
                       }
                       alt={`${activeProject.title} view 3`}
@@ -723,11 +725,11 @@ export function Projects() {
         <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.07)" }} />
       </div>
 
-      {/* 1x3 Grid System */}
+      {/* 2-column responsive Grid */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
           gap: "1.5rem",
         }}
       >
@@ -879,11 +881,11 @@ export function Projects() {
         position: "relative",
       }}
     >
-      {/* 1x3 System for Software & Full Stack */}
-      {renderGridSection("Software &amp; Full-Stack Core", "#c87eff", softwareRows)}
+      {/* Full-Stack & Mobile Engineering Showcase */}
+      {renderGridSection("Full-Stack &amp; Mobile Engineering", "#c87eff", fullstackRows)}
 
-      {/* 1x3 System for Hardware & Embedded */}
-      {renderGridSection("Hardware &amp; Embedded Systems", "#2ed4c8", hardwareRows)}
+      {/* Hardware & Systems Archive */}
+      {renderGridSection("Systems &amp; Embedded Foundations", "#2ed4c8", hardwareRows)}
 
       {/* Distinction & Recognition */}
       <div style={{ marginTop: "4.5rem" }}>

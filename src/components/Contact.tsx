@@ -33,11 +33,11 @@ export function Contact() {
   };
 
   const handleResumeDownload = () => {
-    setDownloadToastMessage("Downloading...");
+    setDownloadToastMessage("Downloading Dilip_Kumar_AN.pdf...");
     setTimeout(() => setDownloadToastMessage(null), 2000);
     const link = document.createElement("a");
-    link.href = "/Dilip_Kumar_CV.pdf";
-    link.setAttribute("download", "Dilip_Kumar_CV.pdf");
+    link.href = "/Dilip_Kumar_AN.pdf";
+    link.setAttribute("download", "Dilip_Kumar_AN.pdf");
     document.body.appendChild(link);
     link.click();
     link.parentNode?.removeChild(link);
@@ -95,11 +95,11 @@ export function Contact() {
 
   const links = [
     {
-      label: "Resume CV",
-      value: "Dilip_Kumar_CV.pdf",
-      href: "/Dilip_Kumar_CV.pdf",
+      label: "Resume (Dilip_Kumar_AN)",
+      value: "Dilip_Kumar_AN.pdf",
+      href: "/Dilip_Kumar_AN.pdf",
       icon: <FileDown size={14} />,
-      download: "Dilip_Kumar_CV.pdf",
+      download: "Dilip_Kumar_AN.pdf",
     },
     {
       label: "Personal Email",
@@ -516,9 +516,9 @@ export function Contact() {
                   margin: "0 0 2rem 0",
                 }}
               >
-                Focused on low-level systems execution. I am not currently seeking recruiter pipelines,
-                but if you have an intricate bare-metal hardware problem, a complex telemetry challenge,
-                or want to talk shop regarding RISC-V ISA, Verilog simulation timing, or low-overhead protocols,
+                Focused on end-to-end full stack execution. Whether you are building high-throughput
+                microservices in Python, architecting responsive web applications with React and Next.js,
+                scaling PostgreSQL and MongoDB databases, or containerizing workloads with Docker and Kubernetes,
                 I am always ready to collaborate.
               </m.p>
             </div>

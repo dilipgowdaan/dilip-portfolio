@@ -9,28 +9,28 @@ const FONT_SANS = '"DM Sans", sans-serif';
 
 const pillars = [
   {
-    title: "Embedded Systems Integrity",
-    desc: "Many build IoT solutions via simple mock libraries. True hardware excellence is defined by active power optimization, EMI shielding, and solid, low-level RTOS threading.",
+    title: "Full-Stack System Integrity",
+    desc: "Building reliable web & mobile products requires clean API boundaries, typed contracts, resilient data models, and performant server-side rendering with Next.js and React.",
   },
   {
-    title: "Constraints-First Hardware",
-    desc: "Real systems run under extreme physics: low-capacity batteries, signal noises, and narrow channel bandwidths. I calculate margins, design trace matching, and write low-overhead drivers before assembly.",
+    title: "Scalable Data & Containerization",
+    desc: "Robust backends must withstand variable workloads. I design normalized PostgreSQL schemas, document stores with MongoDB, and package microservices inside Docker and Kubernetes for deterministic deployments.",
   },
   {
-    title: "Data-Driven Interfacing",
-    desc: "Hardware without telemetry is a black box. Gathering high-rate signals, cleaning them with digital filter equations, and presenting them via lightweight MQTT protocols is what makes telemetry usable.",
+    title: "Real-Time Telemetry & Mobile UX",
+    desc: "Modern user experiences depend on fast client responsiveness. Using Python, React Native, and real-time database listeners, I deliver cross-platform mobile apps with sub-second interfaces and dynamic sync.",
   },
 ];
 
 const dontDo = [
-  "I don't deliver off-the-shelf wrappers. Real electronics are built on custom circuits and solid telemetry, not mock interfaces.",
-  "I don't separate math from hardware. A controller is only as clean as its filter equations.",
-  "I don't ignore physical constraints. If a circuit hasn't been designed with power draw limitations under load, it's not a systems solution.",
+  "I don't ship brittle prototypes. Production software demands robust error boundaries, strict types, and automated testing.",
+  "I don't neglect database efficiency. A backend is only as scalable as its query plans, indexes, and connection pools.",
+  "I don't ignore deployment constraints. If an application isn't reproducible across containers with Docker and orchestrated reliably, it's not production-ready.",
 ];
 
 const highlightsParagraphs = [
-  "I am an Electronics and Communication Engineering graduate with industry experience, seeking a challenging role to apply technical and problem-solving skills while growing in the fields of electronics, embedded systems, and software development.",
-  "Developing for hardware taught me a hard truth: if a system hasn't been optimized under direct constraints—memory, bandwidth, latency, power—it's not ready. I aim to bridge low-level logic with modern full-stack web architectures to build premium, reliable human-machine telemetry systems.",
+  "I am a Full Stack Software Engineer passionate about architecting scalable web and mobile platforms with Python, React, Next.js, PostgreSQL, Docker, Kubernetes, and MongoDB.",
+  "With an analytical engineering foundation from RV College of Engineering and hands-on systems experience at URSC/ISRO, I approach software with rigorous attention to latency, data consistency, and architectural cleanliness. I specialize in turning complex requirements into resilient full-stack systems with intuitive user experiences.",
 ];
 
 
@@ -123,7 +123,7 @@ export function About() {
                 maxWidth: "600px",
               }}
             >
-              Measured in clock cycles, verified on real silicon, and built to survive physical environment loads.
+              Measured in API response times, verified with resilient tests, and built to scale under production traffic.
             </m.p>
 
             <div
@@ -209,7 +209,7 @@ export function About() {
                       Dilip Kumar A N
                     </h3>
                     <p style={{ fontFamily: FONT_MONO, fontSize: "0.58rem", letterSpacing: "0.15em", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", margin: 0 }}>
-                      Electronics &amp; Embedded Systems Engineer
+                      Full Stack Software Engineer
                     </p>
                   </div>
                 </div>
